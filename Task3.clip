@@ -1,0 +1,40 @@
+CLIPS (6.4 2/9/21)
+(deftemplate father-of (slot father) (slot child))
+(deftemplate mother-of (slot mother) (slot child))
+(deftemplate male (slot person))
+(deftemplate uncle-of (slot uncle) (slot nephew))
+(deftemplate grandparents-of (slot grandparent) (slot person))
+(deftemplate brother-of (slot brother1) (slot brother2))
+----------------------------------------------------------------------------------
+(defrule rule1
+(or( father-of( father ?person1)(child ?person2 ))
+(mother-of ( mother ?person1) (child ?person2)))
+
+(or( father-of ( father ?person1) ( child ?person3))
+(mother-of ( mother ?person1) (child ?person3)))
+
+( male ( person ?person3))
+
+( or (father-of( father ?person2)(child ?person4))
+(mother-of( mother ?person2)(child ?person4)))
+=>
+(assert ( uncle-of ( uncle ?person3)(nephew ?person4)))
+)
+
+----------------------------------------------------------------------------------
+(defrule rule2 ( father-of( father ?person1)(child ?person2 ))
+( father-of( father ?person2)(child ?person3 ))
+ => 
+(assert ( grandparents-of ( grandparent ?person1)(person ?person3))))
+---------------------------------------------------------------------------------
+ (defrule rule3 ( father-of( father ?person1)(child ?person2 ))
+( father-of( father ?person1)(child ?person4 ))
+ => 
+(assert ( brother-of ( brother1 ?person2)(brother2 ?person4))))
+-------------------------------------------------------------------------------
+ (deffacts family
+(father-of(father ayman)(child mohammed))
+(father-of(father ayman)(child amer))
+(male(person mohammed))
+(father-of(father amer)(child ahmed)))
+CLIPS> (uncle-of(uncle mohammed)(nephew ahmed))

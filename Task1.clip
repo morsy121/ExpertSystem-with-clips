@@ -1,0 +1,50 @@
+(deftemplate father-of 
+   (slot father) 
+   (slot child)
+)
+(deftemplate mother-of 
+   (slot mother) 
+   (slot child)
+)
+(deftemplate parents-of 
+   (slot mother)
+   (slot father) 
+   (slot child)
+)
+(deftemplate is-father
+   (slot person)
+)
+(deftemplate is-mother 
+   (slot person)
+)
+(deftemplate is-son 
+   (slot person)
+)
+(deftemplate is-male 
+   (slot person)
+)
+(deftemplate is-female 
+   (slot person)
+)
+(deffacts family 
+   (father-of(father Tom) (child John))
+   (mother-of (mother Susan) (child John))
+   (parent-of (parent Tom Susan)(child John))
+   (deffacts father_mother_child (is-father(person Tom))
+   (is-mother (person Susan))
+   (is-child (person John))
+   (deffacts male_female (is-male(person Tom))
+   (is-female (person Susan))
+   (is-male (person John)))
+   
+	
+
+
+
+
+
+
+
+
+
+
